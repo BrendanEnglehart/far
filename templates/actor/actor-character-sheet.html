@@ -21,7 +21,15 @@
           <input type="text" name="data.health.max" value="{{data.health.max}}" data-dtype="Number"/>
           </div>
         </div>
-        <div class="abilities grid grid-3col">{{!-- abilities here --}}</div>
+        <div class="abilities grid grid-3col">
+        {{#each data.abilities as |ability key|}}
+          <div class="ability flexrow flex-group-center">
+            <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
+            <input type="text" name="data.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
+            <span class="ability-mod">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+          </div>
+        {{/each}}
+        </div>
         <div class="resource flex-group-center">
           <label for="data.attributes.level.value" class="resource-label">Level</label>
           <div class="resource-content flexrow flex-center flex-between">
