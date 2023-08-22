@@ -34,7 +34,7 @@ export class revisionActor extends Actor {
     const flags = actorData.flags.revision5 || {};
     console.log(data)
     //Set Max Health
-    data.health.max = 11
+    data.health.max =  data.abilities.endurance.value
     //  data.abilities.endurance.value + (.1) data.abilities.presence.value + (.25) data.abilities.strength.value;
 
     
