@@ -25,28 +25,28 @@
       },
       "abilities": {
       "strength": {
-        "value": 10,
+        "value": 10
        },
-       "dexterity": {
-          "value": 10,
-        },
+      "dexterity": {
+         "value": 10
+      },
         "focus": {
-      "value": 10,
+      "value": 10
        },
     "endurance": {
-      "value": 10,
+      "value": 10
       },
    "wisdom": {
-      "value": 10,
+      "value": 10
       },
    "charm": {
-      "value": 10,
+      "value": 10
       },
    "presence": {
-      "value": 10,
+      "value": 10
       },
    "knowledge": {
-      "value": 10,
+      "value": 10
       }
       }
     }
