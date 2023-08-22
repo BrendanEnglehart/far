@@ -62,6 +62,10 @@ export class revisionActorSheet extends ActorSheet {
    * @return {undefined}
    */
   _prepareCharacterData(context) {
+    // Handle ability scores.
+    for (let [k, v] of Object.entries(context.data.abilities)) {
+      v.label = k;
+    }
   }
 
   /**
