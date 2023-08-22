@@ -33,7 +33,7 @@ export class revisionActorSheet extends ActorSheet {
     const context = super.getData();
 
     // Use a safe clone of the actor data for further operations.
-    const actorData = this.actor.data.toObject(false);
+    const actorData = context.actor.data;
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = actorData.data;
