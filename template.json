@@ -24,24 +24,30 @@
         }
       },
       "abilities": {
-        "str": {
-          "value": 10
+      "strength": {
+        "value": 10,
+       },
+       "dexterity": {
+          "value": 10,
         },
-        "dex": {
-          "value": 10
-        },
-        "con": {
-          "value": 10
-        },
-        "int": {
-          "value": 10
-        },
-        "wis": {
-          "value": 10
-        },
-        "cha": {
-          "value": 10
-        }
+        "focus": {
+      "value": 10,
+       },
+    "endurance": {
+      "value": 10,
+      },
+   "wisdom": {
+      "value": 10,
+      },
+   "charm": {
+      "value": 10,
+      },
+   "presence": {
+      "value": 10,
+      },
+   "knowledge": {
+      "value": 10,
+      }
       }
     }
   },
