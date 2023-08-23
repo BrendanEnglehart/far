@@ -4,7 +4,7 @@
   "_id": "JLeM65xwuXSbkLMF",
   "img": "icons/svg/item-bag.svg",
   "system": {
-    "description": "",
+    "description": "The Basic Villager Class. The Villager is proficient in Axes, Spears, and Maces. The Villager can Grow into any class",
     "modifiers": {
       "strength": {
         "initial": 2,
