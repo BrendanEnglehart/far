@@ -3,7 +3,16 @@
  * @extends {Actor}
  */
 export class revisionActor extends Actor {
+/**
+  @type {t0class|null}
+ */
+  _t0class;
+  get t0class() { 
+     if (this._t0class !== undefined) return this._t0class;
+     return false;
+  }
 
+  
   /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
