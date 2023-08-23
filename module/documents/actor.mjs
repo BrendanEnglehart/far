@@ -40,6 +40,7 @@ export class revisionActor extends Actor {
   prepareDerivedData() {
     const actorData = this.system;
     const data = actorData;
+    console.log(data);
     const flags = actorData.flags.revision5 || {};
     console.log(data)
     //Set Max Health
