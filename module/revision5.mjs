@@ -30,8 +30,8 @@ Hooks.once('init', async function() {
    * @type {String}
    */
   CONFIG.Combat.initiative = {
-    formula: "1d20",
-    decimals: 2
+    formula: "1d100",
+    decimals: 3
   };
 
   // Define custom Document classes
