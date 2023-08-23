@@ -38,12 +38,7 @@ export class revisionActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
-    const actorData = this.system;
-    const data = actorData;
-    console.log(data);
-    const flags = actorData.flags.revision5 || {};
-    console.log(data)
-    //Set Max Health
+    const data = this.system;
     data.health.max =  data.abilities.endurance.value + (.1 * data.abilities.presence.value) + (.25 * data.abilities.strength.value);
 
     
