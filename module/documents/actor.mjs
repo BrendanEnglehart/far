@@ -38,8 +38,8 @@ export class revisionActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
-    const actorData = this.data;
-    const data = actorData.data;
+    const actorData = this.system;
+    const data = actorData;
     const flags = actorData.flags.revision5 || {};
     console.log(data)
     //Set Max Health
@@ -48,14 +48,14 @@ export class revisionActor extends Actor {
     
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
-    this._prepareCharacterData(actorData);
+    //this._prepareCharacterData(actorData);
   }
 
   /**
    * Prepare Character type specific data
    */
   _prepareCharacterData(actorData) {
-    if (actorData.type !== 'character') return;
+    //if (actorData.type !== 'character') return;
 
     // Make modifications to data here. For example:
     const data = actorData.data;
