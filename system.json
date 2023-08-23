@@ -17,7 +17,7 @@
       "name": "t0",
       "label": "Tier 0 Classes",
       "system": "revision5",
-      "path": "packs/t0.db",
+      "path": "packs/t0",
       "type": "Item",
       "private": false,
       "flags": {}
