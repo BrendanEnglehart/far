@@ -9,7 +9,17 @@
   "esmodules": ["module/revision5.mjs"],
   "styles": ["css/revision5.css"],
   "scripts": [],
-  "packs": [],
+  "packs": [
+     {
+      "name": "t0",
+      "label": "Tier 0 Classes",
+      "system": "revision5",
+      "path": "packs/t0.db",
+      "type": "Item",
+      "private": false,
+      "flags": {}
+    }
+  ],
   "languages": [
     {
       "lang": "en",
