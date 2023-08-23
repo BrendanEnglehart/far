@@ -52,7 +52,7 @@
     }
   },
   "Item": {
-    "types": ["item", "feature"],
+    "types": ["item", "feature", "t0"],
     "templates": {
       "base": {
         "description": ""
@@ -62,10 +62,47 @@
       "templates": ["base"],
       "quantity": 1,
       "weight": 0,
-      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
+      "formula": "d100"
     },
     "feature": {
       "templates": ["base"]
+    },
+    "t0": {
+      "templates": ["base"],
+      "modifiers" : {
+        "strength" : {
+          "initial" : 0,
+          "per" : 0
+        },
+        "dexterity" : {
+          "initial" : 0,
+          "per" : 0
+        },
+        "knowledge" : {
+          "initial" : 0,
+          "per" : 0
+        },
+        "wisdom" : {
+          "initial" : 0,
+          "per" : 0
+          },
+        "prescence" : {
+          "initial" : 0,
+          "per" : 0
+          },
+        "charisma" : {
+          "initial" : 0,
+          "per" : 0
+        },
+        "focus" : {
+          "initial" : 0,
+          "per" : 0
+        },
+        "endurance" : {
+          "initial" : 0,
+          "per" : 0
+        }
+      }
     }
   }
 }
