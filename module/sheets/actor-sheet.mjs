@@ -19,7 +19,7 @@ export class revisionActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/revision5/templates/actor/actor-${this.actor.data.type}-sheet.html`;
+    return `systems/revision5/templates/actor/actor-${this.actor.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -33,10 +33,10 @@ export class revisionActorSheet extends ActorSheet {
     const context = super.getData();
 
     // Use a safe clone of the actor data for further operations.
-    const actorData = context.actor.data;
+    const actorData = context.actor;
 
     // Add the actor's data to context.data for easier access, as well as flags.
-    context.data = actorData.data;
+    context.data = actorData.system;
     context.flags = actorData.flags;
 
     // Prepare character data and items.
@@ -79,7 +79,7 @@ export class revisionActorSheet extends ActorSheet {
     // Initialize containers.
     const gear = [];
     const features = [];
-
+    const classes = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -92,11 +92,16 @@ export class revisionActorSheet extends ActorSheet {
       else if (i.type === 'feature') {
         features.push(i);
       }
+
+      else if (i.type === 't0'){
+        classes.push(i);
+      }
     }
 
     // Assign and return
     context.gear = gear;
     context.features = features;
+    context.t0 = classes
    }
   /* -------------------------------------------- */
 
@@ -165,6 +170,7 @@ export class revisionActorSheet extends ActorSheet {
     };
     // Remove the type from the dataset since it's in the itemData.type prop.
     delete itemData.data["type"];
+
 
     // Finally, create the item!
     return await Item.create(itemData, {parent: this.actor});

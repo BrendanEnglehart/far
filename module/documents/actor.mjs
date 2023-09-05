@@ -23,10 +23,7 @@ export class revisionActor extends Actor {
     if (classObj.type !== "t0"){
     return;
     }
-  
-    if (this.t0class !== null){return;} // We need to implement this but for now we'll just return and not change anything
-
-   
+    if (this.t0class !== null){return;} // We need to implement this but for now we'll just return and not change anything 
     this._t0class = classObj;
     this.t0classDataUpdate()
     this.updateMaxHealth()
@@ -35,9 +32,29 @@ export class revisionActor extends Actor {
   }
 
   t0classDataUpdate(){
+
+    if (this._t0class === undefined){
+
+    for (let item of this.items)
+    if (item.type == "t0")
+    {
+      this._t0class = item;
+    }
+    }
     if (this._t0class !== undefined){
+    
+    
     const data = this.system;
+    for (let item of this.items) 
+    {
+      if (item.type == "t0" && item._id != this._t0class._id)
+      {
+        item.delete()
+      }
+    }
+
     const stats = this._t0class.system.modifiers;
+    
 
     data.abilities.strength.value   +=    stats.strength.initial;
     data.abilities.dexterity.value  +=    stats.dexterity.initial;
