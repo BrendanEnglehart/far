@@ -80,6 +80,7 @@ export class revisionActorSheet extends ActorSheet {
     const gear = [];
     const features = [];
 
+
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
@@ -97,7 +98,6 @@ export class revisionActorSheet extends ActorSheet {
     context.gear = gear;
     context.features = features;
    }
-
   /* -------------------------------------------- */
 
   /** @override */

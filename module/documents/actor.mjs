@@ -4,15 +4,56 @@
  */
 export class revisionActor extends Actor {
 /**
-  @type {t0class|null}
+  @type {t0|null}
  */
   _t0class;
   get t0class() { 
      if (this._t0class !== undefined) return this._t0class;
-     return false;
+     return null;
   }
 
+  showClassList(){
+    ret = []
+    if (this.t0class !== null) {
+      ret.push(this._t0class.name)
+    }
+  }
+
+  changet0class(classObj) { 
+    if (classObj.type !== "t0"){
+    return;
+    }
   
+    if (this.t0class !== null){return;} // We need to implement this but for now we'll just return and not change anything
+
+   
+    this._t0class = classObj;
+    this.t0classDataUpdate()
+    this.updateMaxHealth()
+    return;
+
+  }
+
+  t0classDataUpdate(){
+    if (this._t0class !== undefined){
+    const data = this.system;
+    const stats = this._t0class.system.modifiers;
+
+    data.abilities.strength.value   +=    stats.strength.initial;
+    data.abilities.dexterity.value  +=    stats.dexterity.initial;
+    data.abilities.focus.value      +=    stats.focus.initial;
+    data.abilities.endurance.value  +=    stats.endurance.initial;
+    data.abilities.presence.value   +=    stats.presence.initial;
+    //data.abilities.charm.value      +=    stats.charm.initial;
+    data.abilities.knowledge.value  +=    stats.knowledge.initial;
+    data.abilities.wisdom.value     +=    stats.wisdom.initial;
+    }
+    else {
+      console.log("No t0 Class for Actor")
+    }
+  }
+
+
   /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
@@ -38,13 +79,19 @@ export class revisionActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
-    const data = this.system;
-    data.health.max =  data.abilities.endurance.value + (.1 * data.abilities.presence.value) + (.25 * data.abilities.strength.value);
 
-    
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
-    //this._prepareCharacterData(actorData);
+    this._prepareCharacterData();
+    
+
+
+
+  }
+
+  updateMaxHealth() {
+    const data = this.system;
+    data.health.max =  data.abilities.endurance.value + (.1 * data.abilities.presence.value) + (.25 * data.abilities.strength.value);
   }
 
   /**
@@ -54,7 +101,9 @@ export class revisionActor extends Actor {
     //if (actorData.type !== 'character') return;
 
     // Make modifications to data here. For example:
-    const data = actorData.data;
+    const data = this.system;
+    this.t0classDataUpdate()
+    this.updateMaxHealth()
   }
 
   /**

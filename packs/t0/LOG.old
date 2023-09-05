@@ -1,3 +1,7 @@
-2023/08/23-18:34:31.502724 7f01ab7fe700 Recovering log #32
-2023/08/23-18:34:31.511409 7f01ab7fe700 Delete type=0 #32
-2023/08/23-18:34:31.511452 7f01ab7fe700 Delete type=3 #30
+2023/09/04-15:48:52.726 5a08 Recovering log #79
+2023/09/04-15:48:52.730 5a08 Delete type=0 #79
+2023/09/04-15:48:52.730 5a08 Delete type=3 #77
+2023/09/04-15:50:46.416 ec04 Level-0 table #84: started
+2023/09/04-15:50:46.416 ec04 Level-0 table #84: 0 bytes OK
+2023/09/04-15:50:46.417 ec04 Delete type=0 #82
+2023/09/04-15:50:46.429 ec04 Manual compaction at level-0 from '!items!JLeM65xwuXSbkLMF' @ 72057594037927935 : 1 .. '!items!JLeM65xwuXSbkLMF' @ 0 : 0; will stop at (end)
