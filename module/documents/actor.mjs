@@ -3,6 +3,7 @@
  * @extends {Actor}
  */
 export class revisionActor extends Actor {
+ 
 /**
   @type {t0|null}
  */
@@ -12,6 +13,83 @@ export class revisionActor extends Actor {
      return null;
   }
 
+/**
+ * @type {int}
+ */
+  _t0level;
+  get t0level() {
+    if (this._t0level === undefined)
+      this._t0level = 0
+    return this._t0level;
+  }
+
+  _t0Exp;
+  get t0Exp() {
+    if (this._t0Exp === undefined)
+     this._t0Exp = 0
+    return this._t0Exp;
+  }
+
+  t0LevelUp(){
+    if (this.t0level >= 10)
+      return false;
+    this._t0level += 1;
+    const stats = this._t0class.system.modifiers;
+    const data = this.system;
+
+    data.abilities.strength.value   +=    stats.strength.per;
+    data.abilities.dexterity.value  +=    stats.dexterity.per;
+    data.abilities.focus.value      +=    stats.focus.per;
+    data.abilities.endurance.value  +=    stats.endurance.per;
+    data.abilities.presence.value   +=    stats.presence.per;
+    //data.abilities.charm.value      +=    stats.charm.per;
+    data.abilities.knowledge.value  +=    stats.knowledge.per;
+    data.abilities.wisdom.value     +=    stats.wisdom.per;
+    this.updateMaxHealth()
+    return true;
+
+  }
+
+  checkt0LevelUp(){
+    if (CONFIG.REVISION5.t0levelThresholds[this.t0level + 1] !== undefined)
+    {
+      let nextThreshold = CONFIG.REVISION5.t0levelThresholds[this.t0level + 1]
+      if (this._t0Exp > nextThreshold)
+      {
+        return this.t0LevelUp()
+      }
+    }
+    return false;
+  }
+
+  addExp(exp) { 
+    if (this._t1class == undefined){
+      if (this._t0Exp === undefined || this._t0exp === null) {
+         this._t0Exp = exp;
+      }
+      else {
+        this._t0Exp += exp;
+      }
+      // Can't gain more than 3 levels in one burst of exp.
+      let capGain = 0;
+      while (this.checkt0LevelUp()){
+        capGain +=1; 
+        if (capGain > 3)
+          break
+      }
+    }
+  }
+
+
+
+
+  _t1class;
+  get t1class() { 
+     if (this._t1class !== undefined) return this._t1class;
+     return null;
+  }
+
+
   showClassList(){
     ret = []
     if (this.t0class !== null) {
@@ -19,7 +97,9 @@ export class revisionActor extends Actor {
     }
   }
 
-  changet0class(classObj) { 
+  // Right now we're not calling this but this will be run when you change your t0 class, you can call this
+  // from the commandline (f12) to change the set class for the character 
+  ont0ClassChange(classObj) { 
     if (classObj.type !== "t0"){
     return;
     }
