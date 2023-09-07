@@ -20,7 +20,15 @@
       "templates": ["base"],
       "attributes": {
         "level": {
-          "value": 1
+          "t0level": 0,
+          "t1level": 0
+        },
+        "activeTier" : {
+          "value" : 0
+        },
+        "experience" : { 
+          "t0Exp" : 0,
+          "t1Exp" : 0
         }
       },
       "abilities": {

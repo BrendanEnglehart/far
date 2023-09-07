@@ -13,29 +13,36 @@ export class revisionActor extends Actor {
      return null;
   }
 
-/**
- * @type {int}
- */
-  _t0level;
-  get t0level() {
-    if (this._t0level === undefined)
-      this._t0level = 0
-    return this._t0level;
+
+
+  _t1class;
+  get t1class() { 
+     if (this._t1class !== undefined) return this._t1class;
+     return null;
   }
 
-  _t0Exp;
-  get t0Exp() {
-    if (this._t0Exp === undefined)
-     this._t0Exp = 0
-    return this._t0Exp;
+
+
+  addExp(exp) { 
+    if (this._t1class == undefined){
+      this.system.attributes.experience.t0Exp += exp;   
+      // Can't gain more than 3 levels in one burst of exp.
+      let capGain = 0;
+      while (this.checkt0LevelUp()){
+        capGain +=1; 
+        if (capGain > 3)
+          break
+      }
+    }
   }
+
 
   t0LevelUp(){
-    if (this.t0level >= 10)
+    if (this.system.attributes.level.t0level >= 10)
       return false;
     this._t0level += 1;
     const stats = this._t0class.system.modifiers;
-    const data = this.system;
+    let data = this.system;
 
     data.abilities.strength.value   +=    stats.strength.per;
     data.abilities.dexterity.value  +=    stats.dexterity.per;
@@ -51,10 +58,10 @@ export class revisionActor extends Actor {
   }
 
   checkt0LevelUp(){
-    if (CONFIG.REVISION5.t0levelThresholds[this.t0level + 1] !== undefined)
+    if (CONFIG.REVISION5.t0levelThresholds[this.system.attributes.level.t0level + 1] !== undefined)
     {
-      let nextThreshold = CONFIG.REVISION5.t0levelThresholds[this.t0level + 1]
-      if (this._t0Exp > nextThreshold)
+      let nextThreshold = CONFIG.REVISION5.t0levelThresholds[this.system.attributes.level.t0level + 1]
+      if (this.system.attributes.experience.t0Exp > nextThreshold)
       {
         return this.t0LevelUp()
       }
@@ -62,32 +69,8 @@ export class revisionActor extends Actor {
     return false;
   }
 
-  addExp(exp) { 
-    if (this._t1class == undefined){
-      if (this._t0Exp === undefined || this._t0exp === null) {
-         this._t0Exp = exp;
-      }
-      else {
-        this._t0Exp += exp;
-      }
-      // Can't gain more than 3 levels in one burst of exp.
-      let capGain = 0;
-      while (this.checkt0LevelUp()){
-        capGain +=1; 
-        if (capGain > 3)
-          break
-      }
-    }
-  }
 
 
-
-
-  _t1class;
-  get t1class() { 
-     if (this._t1class !== undefined) return this._t1class;
-     return null;
-  }
 
 
   showClassList(){

@@ -7,6 +7,7 @@ REVISION5.foobar = {
 };
 
 REVISION5.t0levelThresholds = {
+  0 : 0,
   1 : 100,
   2 : 250,
   3 : 750,
