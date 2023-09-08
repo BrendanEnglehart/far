@@ -25,7 +25,10 @@ export class revisionActor extends Actor {
 
   addExp(exp) { 
     if (this._t1class == undefined){
+      console.log(this.system.attributes.experience.t0Exp)
       this.system.attributes.experience.t0Exp += exp;   
+      console.log(this.system.attributes.experience.t0Exp)
+      //this.update(this.system);
       // Can't gain more than 3 levels in one burst of exp.
       let capGain = 0;
       while (this.checkt0LevelUp()){
@@ -38,21 +41,26 @@ export class revisionActor extends Actor {
 
 
   t0LevelUp(){
+    
     if (this.system.attributes.level.t0level >= 10)
       return false;
-    this._t0level += 1;
+    this.system.attributes.level.t0level += 1;
     const stats = this._t0class.system.modifiers;
-    let data = this.system;
-
-    data.abilities.strength.value   +=    stats.strength.per;
-    data.abilities.dexterity.value  +=    stats.dexterity.per;
-    data.abilities.focus.value      +=    stats.focus.per;
-    data.abilities.endurance.value  +=    stats.endurance.per;
-    data.abilities.presence.value   +=    stats.presence.per;
+    // const data = this.system;
+    console.log(this.system.abilities.knowledge.value)
+    const data = this.system;
+    this.system.abilities.strength.value   +=    stats.strength.per;
+    this.system.abilities.dexterity.value  +=    stats.dexterity.per;
+    this.system.abilities.focus.value      +=    stats.focus.per;
+    this.system.abilities.endurance.value  +=    stats.endurance.per;
+    this.system.abilities.presence.value   +=    stats.presence.per;
     //data.abilities.charm.value      +=    stats.charm.per;
     data.abilities.knowledge.value  +=    stats.knowledge.per;
-    data.abilities.wisdom.value     +=    stats.wisdom.per;
-    this.updateMaxHealth()
+    this.system.abilities.wisdom.value     +=    stats.wisdom.per;
+    this.updateMaxHealth();
+    console.log(this.system.abilities.knowledge.value)
+    // this.update(this.system);
+    // console.log(this.system.abilities.knowledge.value)
     return true;
 
   }
@@ -103,7 +111,7 @@ export class revisionActor extends Actor {
     {
       this._t0class = item;
     }
-    }
+    
     if (this._t0class !== undefined){
     
     
@@ -118,7 +126,6 @@ export class revisionActor extends Actor {
 
     const stats = this._t0class.system.modifiers;
     
-
     data.abilities.strength.value   +=    stats.strength.initial;
     data.abilities.dexterity.value  +=    stats.dexterity.initial;
     data.abilities.focus.value      +=    stats.focus.initial;
@@ -128,19 +135,23 @@ export class revisionActor extends Actor {
     data.abilities.knowledge.value  +=    stats.knowledge.initial;
     data.abilities.wisdom.value     +=    stats.wisdom.initial;
     }
+
     else {
       console.log("No t0 Class for Actor")
+    }
     }
   }
 
 
   /** @override */
   prepareData() {
+    console.log(this.system.abilities)
     // Prepare data for the actor. Calling the super version of this executes
     // the following, in order: data reset (to clear active effects),
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
     super.prepareData();
+    console.log(this.system.abilities)
   }
 
   /** @override */
@@ -159,11 +170,11 @@ export class revisionActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
-
+    console.log(this.system.abilities)
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
     this._prepareCharacterData();
-    
+    console.log(this.system.abilities)
 
 
 
@@ -171,7 +182,12 @@ export class revisionActor extends Actor {
 
   updateMaxHealth() {
     const data = this.system;
+    const curr = data.health.max;
     data.health.max =  data.abilities.endurance.value + (.1 * data.abilities.presence.value) + (.25 * data.abilities.strength.value);
+    const diff = data.health.max - curr
+    if (diff > 0)
+      data.health.value += data.health.max - curr
+    //this.update(this.system);
   }
 
   /**
@@ -189,31 +205,31 @@ export class revisionActor extends Actor {
   /**
    * Override getRollData() that's supplied to rolls.
    */
-  getRollData() {
-    const data = super.getRollData();
+  // getRollData() {
+  //   const data = super.getRollData();
 
-    // Prepare character roll data.
-    this._getCharacterRollData(data);
+  //   // Prepare character roll data.
+  //   this._getCharacterRollData(data);
 
-    return data;
-  }
+  //   return data;
+  // }
 
   /**
    * Prepare character roll data.
    */
-  _getCharacterRollData(data) {
-    if (this.data.type !== 'character') return;
-    // Copy the ability scores to the top level, so that rolls can use
-    // formulas like `@str.mod + 4`.
-    if (data.abilities) {
-      for (let [k, v] of Object.entries(data.abilities)) {
-        data[k] = foundry.utils.deepClone(v);
-      }
-    }
-    // Add level for easier access, or fall back to 0.
-    if (data.attributes.level) {
-      data.lvl = data.attributes.level.value ?? 0;
-    }
-  }
+  // _getCharacterRollData(data) {
+  //   if (this.data.type !== 'character') return;
+  //   // Copy the ability scores to the top level, so that rolls can use
+  //   // formulas like `@str.mod + 4`.
+  //   if (data.abilities) {
+  //     for (let [k, v] of Object.entries(data.abilities)) {
+  //       data[k] = foundry.utils.deepClone(v);
+  //     }
+  //   }
+  //   // Add level for easier access, or fall back to 0.
+  //   if (data.attributes.level) {
+  //     data.lvl = data.attributes.level.value ?? 0;
+  //   }
+  // }
 
 }

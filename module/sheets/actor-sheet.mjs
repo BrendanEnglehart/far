@@ -34,7 +34,7 @@ export class revisionActorSheet extends ActorSheet {
 
     // Use a safe clone of the actor data for further operations.
     const actorData = context.actor;
-
+    console.log(actorData)
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = actorData.system;
     context.flags = actorData.flags;
@@ -63,9 +63,9 @@ export class revisionActorSheet extends ActorSheet {
    */
   _prepareCharacterData(context) {
     // Handle ability scores.
-    for (let [k, v] of Object.entries(context.data.abilities)) {
-      v.label = k;
-    }
+    // for (let [k, v] of Object.entries(context.data.abilities)) {
+    //   v.label = k;
+    // }
   }
 
   /**
@@ -107,7 +107,7 @@ export class revisionActorSheet extends ActorSheet {
 
   /** @override */
   activateListeners(html) {
-    super.activateListeners(html);
+    // super.activateListeners(html);
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.find('.item-edit').click(ev => {

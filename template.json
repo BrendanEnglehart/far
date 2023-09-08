@@ -3,6 +3,19 @@
     "types": ["character"],
     "templates": {
       "base": {
+        "attributes": {
+          "level": {
+            "t0level": 0,
+            "t1level": 0
+          },
+          "activeTier" : {
+            "value" : 0
+          },
+          "experience" : { 
+            "t0Exp" : 0,
+            "t1Exp" : 0
+          }
+        },
         "health": {
           "value": 10,
           "min": 0,
@@ -16,48 +29,7 @@
         "biography": ""
       }
     },
-   "character": {
-      "templates": ["base"],
-      "attributes": {
-        "level": {
-          "t0level": 0,
-          "t1level": 0
-        },
-        "activeTier" : {
-          "value" : 0
-        },
-        "experience" : { 
-          "t0Exp" : 0,
-          "t1Exp" : 0
-        }
-      },
-      "abilities": {
-      "strength": {
-        "value": 10
-       },
-      "dexterity": {
-         "value": 10
-      },
-        "focus": {
-      "value": 10
-       },
-    "endurance": {
-      "value": 10
-      },
-   "wisdom": {
-      "value": 10
-      },
-   "charm": {
-      "value": 10
-      },
-   "presence": {
-      "value": 10
-      },
-   "knowledge": {
-      "value": 10
-      }
-      }
-    }
+   "character": {}
   },
   "Item": {
     "types": ["item", "feature", "t0"],
