@@ -25,23 +25,23 @@
         {{#each data.abilities as |ability key|}}
           <div class="ability flexrow flex-group-center">
             <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
-            <input type="text" name="data.abilities.{{key}}.value" value="{{ability.value}}" data-dtype="Number">
+            <span class="ability-mod">{{numberFormat ability.value decimals=1}}</span>
           </div>
         {{/each}}
         </div>
         <div class="resource flex-group-center">
           <label for="data.attributes.level.t0level" class="resource-label">Level</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" data="data.attributes.level.t0level" value="{{data.attributes.level.t0level}}" data-dtype="Number">
+            <span class="ability-mod">{{numberFormat data.attributes.level.t0level}}</span>
           </div>
           
           <label for="data.attributes.level.value" class="resource-label">Tier</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" data="data.attributes.activeTier" value="{{data.attributes.activeTier}}" data-dtype="Number">
+            <span class="ability-mod">{{numberFormat data.attributes.activeTier}}</span>
           </div>
           <label for="data.attributes.level.value" class="resource-label">Exp</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" data="data.attributes.experience.t0Exp" value="{{data.attributes.experience.t0Exp}}" data-dtype="Number">
+            <span class="ability-mod">{{numberFormat data.attributes.experience.t0Exp}}</span>
           </div>
         </div>
 
