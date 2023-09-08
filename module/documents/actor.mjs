@@ -22,6 +22,10 @@ export class revisionActor extends Actor {
   }
 
 
+  doUpdates() {
+     this.update({"system.attributes" : this.system.attributes, "system.abilities" : this.system.abilities})
+  }
+
 
   addExp(exp) { 
     if (this._t1class == undefined){
@@ -36,6 +40,7 @@ export class revisionActor extends Actor {
         if (capGain > 3)
           break
       }
+      this.doUpdates();
     }
   }
 
