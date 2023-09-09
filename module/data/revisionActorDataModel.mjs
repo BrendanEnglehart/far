@@ -21,6 +21,13 @@ export class CharacterData extends foundry.abstract.DataModel {
           })
         }),
         attributes: new fields.SchemaField({
+            class: new fields.SchemaField({
+                t0: new fields.StringField({
+                    required: true,
+                    initial: null,
+                    nullable: true
+                })
+            }),
             level:  new fields.SchemaField({
                 t0level :  new fields.NumberField({
                     required: true,

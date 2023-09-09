@@ -10,7 +10,10 @@ export class revisionActor extends Actor {
   _t0class;
   get t0class() { 
      if (this._t0class !== undefined) return this._t0class;
-     return null;
+     if (this.system.attributes.class.t0 !== null){
+      this._t0class = game.items.find("this.system.attributes.class.t0")
+     return this._t0class
+   }  
   }
 
 
@@ -26,6 +29,17 @@ export class revisionActor extends Actor {
      this.update({"system.attributes" : this.system.attributes, "system.abilities" : this.system.abilities})
   }
 
+
+  damage(value, type=null){
+
+    
+    this.system.health.value -= value;
+
+
+    this.doUpdates();
+
+
+  }
 
   addExp(exp) { 
     if (this._t1class == undefined){
@@ -106,7 +120,12 @@ export class revisionActor extends Actor {
   t0classDataUpdate(){
 
     if (this._t0class === undefined){
-
+      if (this.system.attributes.class.t0 !== null){
+        this._t0class = game.items.find(this.system.attributes.class.t0)
+        if (this._t0class !== undefined) {
+          return
+        }
+      }
     for (let item of this.items)
     if (item.type == "t0")
     {
@@ -125,21 +144,22 @@ export class revisionActor extends Actor {
       }
     }
 
-    const stats = this._t0class.system.modifiers;
-    
-    data.abilities.strength.value   +=    stats.strength.initial;
-    data.abilities.dexterity.value  +=    stats.dexterity.initial;
-    data.abilities.focus.value      +=    stats.focus.initial;
-    data.abilities.endurance.value  +=    stats.endurance.initial;
-    data.abilities.presence.value   +=    stats.presence.initial;
-    //data.abilities.charm.value      +=    stats.charm.initial;
-    data.abilities.knowledge.value  +=    stats.knowledge.initial;
-    data.abilities.wisdom.value     +=    stats.wisdom.initial;
-    }
+        const stats = this._t0class.system.modifiers;
+        this.system.attributes.class = this._t0class._id;
+        data.abilities.strength.value   +=    stats.strength.initial;
+        data.abilities.dexterity.value  +=    stats.dexterity.initial;
+        data.abilities.focus.value      +=    stats.focus.initial;
+        data.abilities.endurance.value  +=    stats.endurance.initial;
+        data.abilities.presence.value   +=    stats.presence.initial;
+        //data.abilities.charm.value      +=    stats.charm.initial;
+        data.abilities.knowledge.value  +=    stats.knowledge.initial;
+        data.abilities.wisdom.value     +=    stats.wisdom.initial;
+        this.doUpdates();
+      }
 
-    else {
-      console.log("No t0 Class for Actor")
-    }
+      else {
+        console.log("No t0 Class for Actor")
+      }
     }
   }
 
