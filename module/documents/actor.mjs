@@ -52,7 +52,6 @@ export class revisionActor extends Actor {
     this.system.attributes.level.t0level += 1;
     const stats = this._t0class.system.modifiers;
     // const data = this.system;
-    console.log(this.system.abilities.knowledge.value)
     const data = this.system;
     this.system.abilities.strength.value   +=    stats.strength.per;
     this.system.abilities.dexterity.value  +=    stats.dexterity.per;
@@ -63,9 +62,6 @@ export class revisionActor extends Actor {
     data.abilities.knowledge.value  +=    stats.knowledge.per;
     this.system.abilities.wisdom.value     +=    stats.wisdom.per;
     this.updateMaxHealth();
-    console.log(this.system.abilities.knowledge.value)
-    // this.update(this.system);
-    // console.log(this.system.abilities.knowledge.value)
     return true;
 
   }
@@ -175,20 +171,17 @@ export class revisionActor extends Actor {
    * is queried and has a roll executed directly from it).
    */
   prepareDerivedData() {
-    console.log(this.system.abilities)
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
     this._prepareCharacterData();
-    console.log(this.system.abilities)
-
-
 
   }
 
   updateMaxHealth() {
     const data = this.system;
     const curr = data.health.max;
-    data.health.max =  data.abilities.endurance.value + (.1 * data.abilities.presence.value) + (.25 * data.abilities.strength.value);
+    // Since the health field is updated as an input, we want to guarantee the precision on the update rather than when we display it.
+    data.health.max =  Math.round(100 * (data.abilities.endurance.value + (.1 * data.abilities.presence.value) + (.25 * data.abilities.strength.value))) / 100.0;
     const diff = data.health.max - curr
     if (diff > 0)
       data.health.value += data.health.max - curr
