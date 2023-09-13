@@ -1,37 +1,26 @@
-/**
- * Extend the basic Item with some very simple modifications.
- * @extends {Item}
- */
-export class revisionItem extends Item {
-  /**
-   * Augment the basic Item data model with additional dynamic data.
-   */
-  prepareData() {
-    // As with the actor class, items are documents that can have their data
-    // preparation methods overridden (such as prepareBaseData()).
-    super.prepareData();
-  }
+import { revisionItem } from "./item.mjs";
 
-  /**
-   * Prepare a data object which is passed to any Roll formulas which are created related to this Item
-   * @private
-   */
-   getRollData() {
-    // If present, return the actor's roll data.
-    if ( !this.actor ) return null;
-    const rollData = this.actor.getRollData();
-    rollData.item = foundry.utils.deepClone(this.data.data);
+export class revisionAbilities extends revisionItem {
 
-    return rollData;
-  }
 
+    getModifier()  {
+        let sum = 0;
+        const rollData = this.getRollData();
+        for (key in this.system.roll.abilitiesModifiers.keys())
+        {
+            sum += this.system.roll.abilitiesModifiers[key].value * rollData[key].value;
+        }
+        sum += this.system.roll.staticModifiers.value();
+        return sum;
+    }
+    
   /**
    * Handle clickable rolls.
    * @param {Event} event   The originating click event
    * @private
    */
   async roll() {
-    const item = this.system;
+    const item = this.data;
 
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
@@ -39,7 +28,7 @@ export class revisionItem extends Item {
     const label = `[${item.type}] ${item.name}`;
 
     // If there's no roll data, send a chat message.
-    if (!this.system.formula) {
+    if (this.system.passive) {
       ChatMessage.create({
         speaker: speaker,
         rollMode: rollMode,
@@ -51,11 +40,9 @@ export class revisionItem extends Item {
     else {
       // Retrieve roll data.
       const rollData = this.getRollData();
-
       // Invoke the roll and submit it to chat.
-      const roll = new Roll(rollData.item.formula, rollData);
+      const roll = new Roll("1d100 + @modifier", {modifier: this.getModifier() });
       // If you need to store the value first, uncomment the next line.
-      // let result = await roll.roll({async: true});
       roll.toMessage({
         speaker: speaker,
         rollMode: rollMode,

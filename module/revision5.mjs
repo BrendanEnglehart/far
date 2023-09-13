@@ -1,6 +1,7 @@
 // Import document classes.
 
 import { CharacterData } from "./data/revisionActorDataModel.mjs";
+import { AbilitiesData } from "./data/revisionAbilitiesDataModel.mjs";
 import { revisionActor } from "./documents/actor.mjs";
 import { revisionItem } from "./documents/item.mjs";
 // Import sheet classes.
@@ -18,7 +19,8 @@ import { REVISION5 } from "./helpers/config.mjs";
 Hooks.once('init', async function() {
   CONFIG.debug.hooks = true;
   console.log("here")
-  CONFIG.Actor.systemDataModels.character = CharacterData;
+  CONFIG.Actor.dataModels.character = CharacterData;
+  CONFIG.Item.dataModels.abilities = AbilitiesData;
   // console.log(CONFIG.Actor.systemDataModels)
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.

@@ -32,7 +32,7 @@
    "character": {}
   },
   "Item": {
-    "types": ["item", "feature", "t0"],
+    "types": ["item", "feature", "t0", "abilities"],
     "templates": {
       "base": {
         "description": ""
@@ -83,6 +83,7 @@
           "per" : 0
         }
       }
-    }
+    },
+    "abilities" : {}
   }
 }
