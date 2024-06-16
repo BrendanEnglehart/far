@@ -1,11 +1,13 @@
 {
   "Actor": {
-    "types": ["character"],
+    "types": [
+      "character"
+    ],
     "templates": {
       "base": {
         "attributes": {
           "level": {
-            "value":0
+            "value": 0
           },
           "health": {
             "value": 10,
@@ -106,79 +108,104 @@
         "biography": ""
       }
     },
-   "character": {}
+    "character": {}
   },
   "Item": {
-    "types": ["item", "feature", "class", "abilities"],
+    "types": [
+      "item",
+      "feature",
+      "class",
+      "abilities"
+    ],
     "templates": {
       "base": {
-        "description": ""
+        "description": "",
+        "name" : "",
+        "item" : "img"
       },
-      "classMod" : {
-        "initial" : 0,
-        "per" : 0
+      "classMod": {
+        "initial": 0,
+        "per": 0
       }
     },
     "item": {
-      "templates": ["base"],
-      "quantity": 1,
-      "weight": 0,
+      "templates": [
+        "base"
+      ],
       "formula": "d10"
     },
     "feature": {
-      "templates": ["base"]
+      "templates": [
+        "base"
+      ]
     },
     "class": {
-      "templates": ["base"],
-      "modifiers" : {
-        "agility" :{
-          "templates": ["classMod"]
+      "templates": [
+        "base"
+      ],
+      "modifiers": {
+        "agility": {
+          "initial": 0,
+          "per": 0
         },
-        "culinary" :{
-          "templates": ["classMod"]
+        "culinary": {
+          "initial": 0,
+          "per": 0
         },
-        "deception" :{
-          "templates": ["classMod"]
+        "deception": {
+          "initial": 0,
+          "per": 0
         },
-        "focus" :{
-          "templates": ["classMod"]
+        "focus": {
+          "initial": 0,
+          "per": 0
         },
-        "handicraft" :{
-          "templates": ["classMod"]
+        "handicraft": {
+          "initial": 0,
+          "per": 0
         },
-        "healing" :{
-          "templates": ["classMod"]
+        "healing": {
+          "initial": 0,
+          "per": 0
         },
-        "influence" :{
-          "templates": ["classMod"]
+        "influence": {
+          "initial": 0,
+          "per": 0
         },
-        "nature" :{
-          "templates": ["classMod"]
+        "nature": {
+          "initial": 0,
+          "per": 0
         },
-        "perception" :{
-          "templates": ["classMod"]
+        "perception": {
+          "initial": 0,
+          "per": 0
         },
-        "physique" :{
-          "templates": ["classMod"]
+        "physique": {
+          "initial": 0,
+          "per": 0
         },
-        "skullduggery" :{
-          "templates": ["classMod"]
+        "skullduggery": {
+          "initial": 0,
+          "per": 0
         },
-        "spellcraft" :{
-          "templates": ["classMod"]
+        "spellcraft": {
+          "initial": 0,
+          "per": 0
         },
-        "stealth" :{
-          "templates": ["classMod"]
+        "stealth": {
+          "initial": 0,
+          "per": 0
         },
-        "survival" :{
-          "templates": ["classMod"]
+        "survival": {
+          "initial": 0,
+          "per": 0
         },
-        "warcraft" :{
-          "templates": ["classMod"]
+        "warcraft": {
+          "initial": 0,
+          "per": 0
         }
-
       }
     },
-    "abilities" : {}
+    "abilities": {}
   }
 }

@@ -8,7 +8,6 @@
     "verified": "11.306",
     "maximum": 12
   },
-  "author": "Brendan Englehart",
   "esmodules": ["module/far.mjs"],
   "styles": ["css/far.css"],
   "scripts": [],

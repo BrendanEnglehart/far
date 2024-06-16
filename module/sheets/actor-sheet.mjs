@@ -8,7 +8,7 @@ export class farActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["far", "sheet", "actor"],
       template: "systems/far/templates/actor/actor-sheet.html",
       width: 600,

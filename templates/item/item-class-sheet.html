@@ -20,7 +20,7 @@
 
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
-      {{#each data.modifiers as |ability key|}}
+      {{#each item.modifiers as |ability key|}}
           <div class="ability flexrow flex-group-center">
             <label for="data.modifiers.{{key}}" class="resource-label">{{key}}</label>
             <span class="ability-mod">Initial: {{numberFormat ability.initial}}</span>
