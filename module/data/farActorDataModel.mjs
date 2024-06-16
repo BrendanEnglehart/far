@@ -43,7 +43,7 @@ export class CharacterData extends foundry.abstract.DataModel {
                 level: new fields.SchemaField({
                     level: new fields.NumberField({
                         required: true,
-                        initial: 0,
+                        initial: 1,
                         integer: true
                     }),
                 }),
