@@ -1,18 +1,19 @@
 ### far
 # Test Build for LoF
+- Rules available at https://app.landoffar.com/core-rules.php
 
-## Steps towards playable state
-# Equipment
-# Base Classes
-# Magic Spells
-# Feats
-# Abilities
+# Steps towards playable state
+- Equipment
+- Base Classes
+- Magic Spells
+- Feats
+- Abilities
 
-## Future / Nice to have
-# Subclasses
-# Starter Class Pop up
-# Helmet / Armor / Hand Equipment slots
-# Consumables
+# Future / Nice to have
+- Subclasses
+- Starter Class Pop up
+- Helmet / Armor / Hand Equipment slots
+- Consumables
 
 ```mermaid
 flowchart TD
