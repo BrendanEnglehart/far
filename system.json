@@ -1,7 +1,7 @@
 {
-  "name": "revision5",
-  "title": "Revision 5",
-  "description": "The Revision 5 system for FoundryVTT!",
+  "name": "far",
+  "title": "Far",
+  "description": "The far system for FoundryVTT!",
   "version": "1.0.0",
   "compatibility": {
     "minimum": 10,
@@ -9,15 +9,15 @@
     "maximum": 12
   },
   "author": "Brendan Englehart",
-  "esmodules": ["module/revision5.mjs"],
-  "styles": ["css/revision5.css"],
+  "esmodules": ["module/far.mjs"],
+  "styles": ["css/far.css"],
   "scripts": [],
   "packs": [
      {
-      "name": "t0",
+      "name": "class",
       "label": "Tier 0 Classes",
-      "system": "revision5",
-      "path": "packs/t0",
+      "system": "far",
+      "path": "packs/class",
       "type": "Item",
       "private": false,
       "flags": {}
@@ -30,8 +30,6 @@
       "path": "lang/en.json"
     }
   ],
-  "gridDistance": 5,
-  "gridUnits": "ft",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
   "url": "",

@@ -5,15 +5,92 @@
       "base": {
         "attributes": {
           "level": {
-            "t0level": 0,
-            "t1level": 0
+            "value":0
           },
-          "activeTier" : {
-            "value" : 0
+          "health": {
+            "value": 10,
+            "min": 0,
+            "max": 10
           },
-          "experience" : { 
-            "t0Exp" : 0,
-            "t1Exp" : 0
+          "gold": {
+            "value": 50,
+            "min": 0,
+            "max": 1000
+          },
+          "agility": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "culinary": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "deception": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "focus": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "handicraft": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "healing": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "influence": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "nature": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "perception": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "physique": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "skullduggery": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "spellcraft": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "stealth": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "survival": {
+            "value": 0,
+            "min": 0,
+            "max": 100
+          },
+          "warcraft": {
+            "value": 0,
+            "min": 0,
+            "max": 100
           }
         },
         "health": {
@@ -32,56 +109,74 @@
    "character": {}
   },
   "Item": {
-    "types": ["item", "feature", "t0", "abilities"],
+    "types": ["item", "feature", "class", "abilities"],
     "templates": {
       "base": {
         "description": ""
+      },
+      "classMod" : {
+        "initial" : 0,
+        "per" : 0
       }
     },
     "item": {
       "templates": ["base"],
       "quantity": 1,
       "weight": 0,
-      "formula": "d100"
+      "formula": "d10"
     },
     "feature": {
       "templates": ["base"]
     },
-    "t0": {
+    "class": {
       "templates": ["base"],
       "modifiers" : {
-        "strength" : {
-          "initial" : 0,
-          "per" : 0
+        "agility" :{
+          "templates": ["classMod"]
         },
-        "dexterity" : {
-          "initial" : 0,
-          "per" : 0
+        "culinary" :{
+          "templates": ["classMod"]
         },
-        "knowledge" : {
-          "initial" : 0,
-          "per" : 0
+        "deception" :{
+          "templates": ["classMod"]
         },
-        "wisdom" : {
-          "initial" : 0,
-          "per" : 0
-          },
-        "presence" : {
-          "initial" : 0,
-          "per" : 0
-          },
-        "charisma" : {
-          "initial" : 0,
-          "per" : 0
+        "focus" :{
+          "templates": ["classMod"]
         },
-        "focus" : {
-          "initial" : 0,
-          "per" : 0
+        "handicraft" :{
+          "templates": ["classMod"]
         },
-        "endurance" : {
-          "initial" : 0,
-          "per" : 0
+        "healing" :{
+          "templates": ["classMod"]
+        },
+        "influence" :{
+          "templates": ["classMod"]
+        },
+        "nature" :{
+          "templates": ["classMod"]
+        },
+        "perception" :{
+          "templates": ["classMod"]
+        },
+        "physique" :{
+          "templates": ["classMod"]
+        },
+        "skullduggery" :{
+          "templates": ["classMod"]
+        },
+        "spellcraft" :{
+          "templates": ["classMod"]
+        },
+        "stealth" :{
+          "templates": ["classMod"]
+        },
+        "survival" :{
+          "templates": ["classMod"]
+        },
+        "warcraft" :{
+          "templates": ["classMod"]
         }
+
       }
     },
     "abilities" : {}

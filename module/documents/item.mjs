@@ -2,7 +2,7 @@
  * Extend the basic Item with some very simple modifications.
  * @extends {Item}
  */
-export class revisionItem extends Item {
+export class farItem extends Item {
   /**
    * Augment the basic Item data model with additional dynamic data.
    */

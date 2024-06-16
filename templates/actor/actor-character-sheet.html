@@ -8,42 +8,53 @@
       {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
       use both the "grid" and "grid-Ncol" class where "N" can be any number
       from 1 to 12 and will create that number of columns.  --}}
-      <div class="resources grid grid-3col">
-
+      <div class="resources grid grid-2col">
         {{!-- "flex-group-center" is also defined in the _grid.scss file
         and it will add a small amount of padding, a border, and will
         center all of its child elements content and text. --}}
         <div class="resource flex-group-center">
+          <ol class="items-list">
+            <li class="item flexrow items-header">
+              <div class="item-name">Class</div>
+            </li>
+            {{#each class as |class id|}}
+            <li class="item flexrow" data-item-id="{{class._id}}">
+              <div class="item-name">
+                <div class="item-image">
+                  <a class="rollable" data-roll-type="item"><img src="{{class.img}}" title="{{class.name}}" width="24" height="24"/></a>
+                </div>
+                <h4>{{class.name}}</h4>
+              </div>
+            </li>
+            {{/each}}
+          </ol>
+          <div class="resource flex-group-center">
+            <label for="data.attributes.level.level" class="resource-label">Level</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <span class="ability-mod">{{numberFormat data.attributes.level.level}}</span>
+            </div>
+          </div>
           <label for="data.health.value" class="resource-label">Health</label>
           <div class="resource-content flexrow flex-center flex-between">
           <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number"/>
           <span> / </span>
           <input type="text" name="data.health.max" value="{{data.health.max}}" data-dtype="Number"/>
           </div>
+          <label for="data.health.value" class="resource-label">shields</label>
+          <div class="resource-content flexrow flex-center flex-between">
+          <input type="text" name="data.health.value" value="{{data.shield.value}}" data-dtype="Number"/>
         </div>
+      </div>
+      <div>
         <div class="abilities grid grid-3col">
         {{#each data.abilities as |ability key|}}
           <div class="ability flexrow flex-group-center">
             <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
-            <span class="ability-mod">{{numberFormat ability.value decimals=1}}</span>
+            <span class="ability-mod">{{numberFormat ability.value decimals=0}}</span>
           </div>
         {{/each}}
         </div>
-        <div class="resource flex-group-center">
-          <label for="data.attributes.level.t0level" class="resource-label">Level</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <span class="ability-mod">{{numberFormat data.attributes.level.t0level}}</span>
-          </div>
-          
-          <label for="data.attributes.level.value" class="resource-label">Tier</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <span class="ability-mod">{{numberFormat data.attributes.activeTier}}</span>
-          </div>
-          <label for="data.attributes.level.value" class="resource-label">Exp</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <span class="ability-mod">{{numberFormat data.attributes.experience.t0Exp}}</span>
-          </div>
-        </div>
+        
 
       </div>
     </div>
@@ -52,7 +63,6 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
-    <a class="item" data-tab="features">Features</a>
     <a class="item" data-tab="description">Description</a>
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="effects">Effects</a>
@@ -61,24 +71,6 @@
   {{!-- Sheet Body --}}
   <section class="sheet-body">
 
-    {{!-- Owned Features Tab --}}
-    <div class="tab features" data-group="primary" data-tab="features">
-      <section class="grid grid-3col">
-        <aside class="sidebar">
-
-          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
-        </aside>
-
-        {{!-- For the main features list, span the right two columns --}}
-        <section class="main grid-span-2">
-          {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
-          {{> "systems/revision5/templates/actor/parts/actor-features.html"}}
-        </section>
-
-      </section>
-    </div>
 
     {{!-- Biography Tab --}}
     <div class="tab biography" data-group="primary" data-tab="description">
@@ -88,12 +80,12 @@
 
     {{!-- Owned Items Tab --}}
     <div class="tab items" data-group="primary" data-tab="items">
-       {{> "systems/revision5/templates/actor/parts/actor-items.html"}}
+       {{> "systems/far/templates/actor/parts/actor-items.html"}}
     </div>
 
     {{!-- Active Effects Tab --}}
     <div class="tab effects flexcol" data-group="primary" data-tab="effects">
-      {{> "systems/revision5/templates/actor/parts/actor-effects.html"}}
+      {{> "systems/far/templates/actor/parts/actor-effects.html"}}
     </div>
 
   </section>

@@ -1,14 +1,14 @@
 <ol class="items-list">
   <li class="item flexrow items-header">
-    <div class="item-name">T0 Class</div>
+    <div class="item-name">class Class</div>
   </li>
-  {{#each t0 as |t0 id|}}
-  <li class="item flexrow" data-item-id="{{t0._id}}">
+  {{#each class as |class id|}}
+  <li class="item flexrow" data-item-id="{{class._id}}">
     <div class="item-name">
       <div class="item-image">
-        <a class="rollable" data-roll-type="item"><img src="{{t0.img}}" title="{{t0.name}}" width="24" height="24"/></a>
+        <a class="rollable" data-roll-type="item"><img src="{{class.img}}" title="{{class.name}}" width="24" height="24"/></a>
       </div>
-      <h4>{{t0.name}}</h4>
+      <h4>{{class.name}}</h4>
     </div>
   </li>
   {{/each}}

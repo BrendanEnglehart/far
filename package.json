@@ -1,7 +1,7 @@
 {
-  "name": "revision5",
+  "name": "far",
   "version": "1.0.0",
-  "description": "CSS compiler for the Revision 5 system",
+  "description": "CSS compiler for the far system",
   "scripts": {
     "build": "gulp build",
     "compile": "gulp css",

@@ -1,9 +1,9 @@
 {
 
-  "REVISION5.EffectCreate": "Create Effect",
-  "REVISION5.EffectToggle": "Toggle Effect",
-  "REVISION5.EffectEdit": "Edit Effect",
-  "REVISION5.EffectDelete": "Delete Effect",
+  "FAR.EffectCreate": "Create Effect",
+  "FAR.EffectToggle": "Toggle Effect",
+  "FAR.EffectEdit": "Edit Effect",
+  "FAR.EffectDelete": "Delete Effect",
 
-  "REVISION5.Add": "Add"
+  "FAR.Add": "Add"
 }

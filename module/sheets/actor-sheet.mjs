@@ -4,13 +4,13 @@ import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/ef
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class revisionActorSheet extends ActorSheet {
+export class farActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["revision5", "sheet", "actor"],
-      template: "systems/revision5/templates/actor/actor-sheet.html",
+      classes: ["far", "sheet", "actor"],
+      template: "systems/far/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
@@ -19,7 +19,7 @@ export class revisionActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/revision5/templates/actor/actor-${this.actor.type}-sheet.html`;
+    return `systems/far/templates/actor/actor-${this.actor.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -93,7 +93,7 @@ export class revisionActorSheet extends ActorSheet {
         features.push(i);
       }
 
-      else if (i.type === 't0'){
+      else if (i.type === 'class'){
         classes.push(i);
       }
     }
@@ -101,7 +101,7 @@ export class revisionActorSheet extends ActorSheet {
     // Assign and return
     context.gear = gear;
     context.features = features;
-    context.t0 = classes
+    context.class = classes
    }
   /* -------------------------------------------- */
 

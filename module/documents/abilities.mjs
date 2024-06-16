@@ -1,6 +1,6 @@
-import { revisionItem } from "./item.mjs";
+import { farItem } from "./item.mjs";
 
-export class revisionAbilities extends revisionItem {
+export class farAbilities extends farItem {
 
 
     getModifier()  {
