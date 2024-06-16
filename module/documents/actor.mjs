@@ -16,7 +16,6 @@ export class farActor extends Actor {
     }
   }
 
-
   // // Subclass, needs to be renamed
   // _t1class;
   // get t1class() {
@@ -24,18 +23,14 @@ export class farActor extends Actor {
   //   return null;
   // }
 
-
   doUpdates() {
     this.update({ "system.attributes": this.system.attributes, "system.abilities": this.system.abilities })
   }
-
 
   damage(value, type = null) {
     this.system.health.value -= value;
     this.doUpdates();
   }
-
-
 
   classLevelUp() {
 
@@ -55,10 +50,10 @@ export class farActor extends Actor {
   }
 
 
-
-
-
-
+  rollAbilityCheck(ability) {
+    var formula = "1d20+"+ this.system.abilities[ability].value 
+    return this.rollCheck(formula, ability);
+  }
 
   showClassList() {
     ret = []
@@ -107,7 +102,7 @@ export class farActor extends Actor {
         this.system.attributes.class = this._class._id;
         for (let ability of Object.keys(stats)) {
           if (Object.keys(stats[ability]).includes("initial")) {
-            this.system.abilities[ability].value += stats[ability].initial
+            this.system.abilities[ability].value = stats[ability].initial
           }
         }
         this.doUpdates();
@@ -118,7 +113,6 @@ export class farActor extends Actor {
       }
     }
   }
-
 
   /** @override */
   prepareData() {
@@ -170,35 +164,70 @@ export class farActor extends Actor {
   _prepareCharacterData(actorData) {
     //if (actorData.type !== 'character') return;
 
-    // Make modifications to data here. For example:
-    const data = this.system;
     this.classDataUpdate()
     // this.updateMaxHealth()
   }
 
+
+
+
   /**
    * Override getRollData() that's supplied to rolls.
    */
-  // getRollData() {
-  //   const data = super.getRollData();
+  getRollData() {
+    const data = super.getRollData();
 
-  //   // Prepare character roll data.
-  //   this._getCharacterRollData(data);
+    // Prepare character roll data.
+    this._getCharacterRollData(data);
 
-  //   return data;
-  // }
+    return data;
+  }
 
   /**
    * Prepare character roll data.
    */
   _getCharacterRollData(data) {
-    if (this.data.type !== 'character') return;
+    // if (this.data.type !== 'character') return;
     // Copy the ability scores to the top level, so that rolls can use
-    // formulas like `@str.mod + 4`.
-    if (data.abilities) {
-      for (let [k, v] of Object.entries(data.abilities)) {
+    // formulas like `@agility.value + 4`.
+    if (this.system.abilities) {
+      for (let [k, v] of Object.entries(this.system.abilities)) {
         data[k] = foundry.utils.deepClone(v);
       }
+    }
+  }
+
+  async rollAttack() {}
+  async rollCheck(formula, message) {
+    // Initialize chat data.
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+    const label = message;
+
+    // If there's no roll data, send a chat message.
+    if (!formula) {
+      ChatMessage.create({
+        speaker: speaker,
+        rollMode: rollMode,
+        flavor: label,
+        content: message
+      });
+    }
+    // Otherwise, create a roll and send a chat message from it.
+    else {
+      // Retrieve roll data.
+      const rollData = this.getRollData();
+
+      // Invoke the roll and submit it to chat.
+      const roll = new Roll(formula, rollData);
+      // If you need to store the value first, uncomment the next line.
+      // let result = await roll.roll({async: true});
+      roll.toMessage({
+        speaker: speaker,
+        rollMode: rollMode,
+        flavor: label,
+      });
+      return roll;
     }
   }
 

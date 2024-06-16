@@ -48,10 +48,12 @@
       <div>
         <div class="abilities grid grid-3col">
         {{#each data.abilities as |ability key|}}
-          <div class="ability flexrow flex-group-center">
-            <label for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
+          {{#if ability.value}}
+          <div class="ability flexrow flex-group-center rollable" data-roll="d20+@abilities.{{key}}.value" data-label="{{key}} check" >
+            <lab el for="data.abilities.{{key}}.value" class="resource-label">{{key}}</label>
             <span class="ability-mod">{{numberFormat ability.value decimals=0}}</span>
           </div>
+          {{/if}}
         {{/each}}
         </div>
         
