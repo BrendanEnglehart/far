@@ -77,7 +77,6 @@ export class farActor extends Actor {
   }
 
   classDataUpdate() {
-
     if (this._class === undefined) {
       if (this.system.attributes.class.class !== null) {
         this._class = game.items.find(this.system.attributes.class.class)
@@ -102,9 +101,11 @@ export class farActor extends Actor {
         this.system.attributes.class = this._class._id;
         for (let ability of Object.keys(stats)) {
           if (Object.keys(stats[ability]).includes("initial")) {
-            this.system.abilities[ability].value = stats[ability].initial
+            this.system.abilities[ability].value = stats[ability].initial  + 2 * (Math.min(this.system.level.level, 4 ) - 1)
           }
         }
+        // Handle Specialized Here
+
         this.doUpdates();
       }
 
@@ -149,12 +150,15 @@ export class farActor extends Actor {
 
   updateMaxHealth() {
     const data = this.system;
-    const curr = data.health.max;
-    // Since the health field is updated as an input, we want to guarantee the precision on the update rather than when we display it.
-    // data.health.max = Math.round(100 * (data.abilities.endurance.value + (.1 * data.abilities.presence.value) + (.25 * data.abilities.strength.value))) / 100.0;
-    const diff = data.health.max - curr
-    if (diff > 0)
-      data.health.value += data.health.max - curr
+    data.health.max= this._class.system.health; // + Race Health
+    //if (goblin or vampire) data.health.max /=2
+    // Levels 2, 3, and 4 give you 2 additional hit points. 
+    data.health.max+= 2 * (Math.min(data.level.level, 4 ) - 1)
+  
+    
+    // if (HND) max+=2
+
+
     this.update(this.system);
   }
 
@@ -165,7 +169,7 @@ export class farActor extends Actor {
     //if (actorData.type !== 'character') return;
 
     this.classDataUpdate()
-    // this.updateMaxHealth()
+    this.updateMaxHealth()
   }
 
 

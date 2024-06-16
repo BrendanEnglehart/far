@@ -3,6 +3,11 @@ export class FarClassData extends foundry.abstract.DataModel {
         const fields = foundry.data.fields;
         return { 
             description:  new fields.HTMLField(),
+            health: new fields.NumberField({
+                required: true,
+                initial: 0,
+                integer: true
+            }),
             abilities: new fields.SchemaField({
                 agility: new fields.SchemaField({
                     initial: new fields.NumberField({
