@@ -115,7 +115,8 @@
       "item",
       "feature",
       "class",
-      "abilities"
+      "abilities",
+      "weapon"
     ],
     "templates": {
       "base": {
@@ -143,6 +144,7 @@
       "templates": [
         "base"
       ],
+      "health" : 0,
       "modifiers": {
         "agility": {
           "initial": 0,
@@ -205,6 +207,15 @@
           "per": 0
         }
       }
+    },
+    "weapon" : {
+      "templates": [
+        "base"
+      ],
+      "formula" : "d10",
+      "damage" : 1,
+      "type" : "piercing",
+      "range" : "1"
     },
     "abilities": {}
   }
