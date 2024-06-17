@@ -116,13 +116,15 @@
       "feature",
       "class",
       "abilities",
-      "weapon"
+      "weapon",
+      "race"
     ],
     "templates": {
       "base": {
         "description": "",
-        "name" : "",
-        "item" : "img"
+        "name": "",
+        "id": "",
+        "item": "img"
       },
       "classMod": {
         "initial": 0,
@@ -144,7 +146,19 @@
       "templates": [
         "base"
       ],
-      "health" : 0,
+      "locked": 0,
+      "feat": "",
+      "feat_id": "",
+      "second_feat": "",
+      "second_feat_id": "",
+      "magic": "",
+      "difficulty" : "",
+      "sourcebook" : "",
+      "health": 0,
+      "weapons": 0,
+      "armor" : 0,
+      "shields" : 0,
+      "optionalSkills" : [],
       "modifiers": {
         "agility": {
           "initial": 0,
@@ -208,14 +222,31 @@
         }
       }
     },
-    "weapon" : {
+    "weapon": {
       "templates": [
         "base"
       ],
-      "formula" : "d10",
-      "damage" : 1,
-      "type" : "piercing",
-      "range" : "1"
+      "formula": "d10",
+      "damage": 1,
+      "type": "piercing",
+      "range": "1"
+    },
+    "race": {
+      "templates": [
+        "base"
+      ],
+      "hp_mod": 0,
+      "hp_mod_is_multiplyer": "0",
+      "init_mod": "0",
+      "size": "",
+      "spell": "",
+      "training": [],
+      "training_1": "",
+      "training_2": "",
+      "feat": "",
+      "weakness": "",
+      "fav_drink": "",
+      "sourceboook": ""
     },
     "abilities": {}
   }

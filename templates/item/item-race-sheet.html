@@ -1,0 +1,55 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="attributes">Attributes</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    {{!-- Attributes Tab --}}
+    <div class="tab attributes" data-group="primary" data-tab="attributes">
+      {{!-- As you add new fields, add them in here! --}}
+      <div class="resource">
+        <label class="resource-label">Name</label>
+        <input type="text" name="item.name" value="{{item.name}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">Locked</label>
+        <input type="text" name="item.locked" value="{{item.locked}}" data-dtype="Number"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">Hit points</label>
+        <input type="text" name="item.hp_mod" value="{{item.hp_mod}}" data-dtype="Number"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">Initiative</label>
+        <input type="text" name="item.init_mod" value="{{item.init_mod}}" data-dtype="Number"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">Trained in</label>
+        <input type="text" name="item.training_1" value="{{item.training_1}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">also</label>
+        <input type="text" name="item.training_1" value="{{item.training_2}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">feat</label>
+        <input type="text" name="item.feat" value="{{item.feat}}" data-dtype="String"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">weakness</label>
+        <input type="text" name="item.weakness" value="{{item.weakness}}" data-dtype="String"/>
+      </div>
+
+    </div>
+  </section>
+</form>
