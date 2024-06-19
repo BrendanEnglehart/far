@@ -14,13 +14,23 @@
   "packs": [
      {
       "name": "class",
-      "label": "Tier 0 Classes",
+      "label": "Classes",
       "system": "far",
       "path": "packs/class",
       "type": "Item",
       "private": false,
       "flags": {}
+    },
+    {
+      "name": "race",
+      "label": "Races",
+      "system": "far",
+      "path": "packs/races",
+      "type": "Item",
+      "private": false,
+      "flags": {}
     }
+
   ],
   "languages": [
     {
