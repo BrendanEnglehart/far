@@ -32,12 +32,24 @@ export class farActor extends Actor {
     this.doUpdates();
   }
 
+  translateSkills(system) {
+    let skills = []
+    for (let key in system) {
+      if (key.startsWith("skill")) {
+        if (system[key].length == 3) {
+          skills.push(CONFIG.far.shortName[system[key]])
+        }
+      }
+    }
+    return skills
+  }
+
   classLevelUp() {
 
     if (this.system.attributes.level.level >= 10)
       return false;
     this.system.attributes.level.level += 1;
-    const stats = this._class.system.modifiers;
+    const stats = this.translateSkills(this._class.system)
     const data = this.system;
     for (let ability of Object.keys(stats)) {
       if (Object.keys(stats[ability]).includes("per")) {
@@ -97,12 +109,13 @@ export class farActor extends Actor {
           }
         }
 
-        const stats = this._class.system.modifiers;
+        const skills = this.translateSkills(this._class.system);
         this.system.attributes.class = this._class._id;
-        for (let ability of Object.keys(stats)) {
-          if (Object.keys(stats[ability]).includes("initial")) {
-            this.system.abilities[ability].value = stats[ability].initial  + 2 * (Math.min(this.system.level.level, 4 ) - 1)
-          }
+        
+        for (let ability of skills) {
+          
+            this.system.abilities[ability].value = 5  + 2 * (Math.min(this.system.attributes.level.level, 4 ) - 1)
+          
         }
         // Handle Specialized Here
 
@@ -153,7 +166,7 @@ export class farActor extends Actor {
     data.health.max= this._class.system.health; // + Race Health
     //if (goblin or vampire) data.health.max /=2
     // Levels 2, 3, and 4 give you 2 additional hit points. 
-    data.health.max+= 2 * (Math.min(data.level.level, 4 ) - 1)
+    data.health.max+= 2 * (Math.min(data.attributes.level.level, 4 ) - 1)
   
     
     // if (HND) max+=2

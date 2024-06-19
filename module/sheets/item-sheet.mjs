@@ -1,3 +1,5 @@
+import { FAR_CONFIG } from "../helpers/config.mjs";
+
 /**
  * Extend the basic ItemSheet with some very simple modifications
  * @extends {ItemSheet}
@@ -25,8 +27,18 @@ export class farItemSheet extends ItemSheet {
     return `${path}/item-${this.item.type}-sheet.html`;
   }
 
-  /* -------------------------------------------- */
-
+  /* -----------------Should probably be global once I code this right--------------------------- */
+  translateSkills(system) {
+    let skills = []
+    for (let key in system) {
+      if (key.startsWith("skill")) {
+        if (system[key].length == 3) {
+          skills.push(FAR_CONFIG.shortName[system[key]])
+        }
+      }
+    }
+    return skills
+  }
   /** @override */
   getData() {
     // Retrieve base data structure.
@@ -45,6 +57,7 @@ export class farItemSheet extends ItemSheet {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.item = itemData;
     context.flags = itemData.flags;
+    context.skills = this.translateSkills(itemData)
 
     return context;
   }

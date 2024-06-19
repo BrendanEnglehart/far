@@ -9,7 +9,7 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item" data-tab="description">Description</a>
-    <a class="item" data-tab="attributes">Attributes</a>
+    <a class="item" data-tab="attributes">Skills</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -18,14 +18,11 @@
     {{!-- Description Tab --}}
 
 
-    {{!-- Attributes Tab --}}
+    {{!-- Skills Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
-      {{#each item.modifiers as |ability key|}}
+      {{#each skills as |skill|}}
           <div class="ability flexrow flex-group-center">
-            <label for="data.modifiers.{{key}}" class="resource-label">{{key}}</label>
-            <span class="ability-mod">Initial: {{numberFormat ability.initial}}</span>
-            <span class="ability-mod">Growth: {{numberFormat ability.per}}</span>
-
+            <label for="skill" class="resource-label">{{skill}}</label>
           </div>
         {{/each}}
     </div>
