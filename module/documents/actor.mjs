@@ -1,3 +1,5 @@
+import { FAR_CONFIG } from "../helpers/config.mjs";
+
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the Simple system.
  * @extends {Actor}
@@ -16,10 +18,34 @@ export class farActor extends Actor {
     }
   }
 
+
+  /**
+  @type {race|null}
+ */
+  _race;
+  get race() {
+    if (this._race !== undefined) return this._race;
+    if (this.system.attributes.race !== null) {
+      this._race = game.items.find("this.system.attributes.race")
+      return this.__race
+    }
+  }
+
+
+  _optionals;
+  get optionals() {
+    if (this._optionals !== undefined) return this._optionals;
+    if (this.system.attributes.optionals !== null) {
+      this._optionals = this.system.attributes.optionals
+      return this._optionals
+    }
+    return {}
+  }
+
   // // Subclass, needs to be renamed
-  // _t1class;
-  // get t1class() {
-  //   if (this._t1class !== undefined) return this._t1class;
+  // _subclass;
+  // get subclass() {
+  //   if (this._subclass !== undefined) return this._subclass;
   //   return null;
   // }
 
@@ -32,12 +58,64 @@ export class farActor extends Actor {
     this.doUpdates();
   }
 
+  parseChoice(choice) {
+    if (choice == "crachoose1") {
+      return ["culinary", "handicraft", "spellcraft", "warcraft"]
+    } else if (choice == "choose1") {
+      return Object.keys(FAR_CONFIG.abilityReference)
+    }
+    else {
+      var ret = []
+      for (var i = 0; i < choice.length; i += 3) {
+        ret.push(FAR_CONFIG.shortName[choice.substring(i, i + 3)])
+      }
+      return ret
+    }
+  }
+
+  updateSkills() {
+    const skills = this.translateSkills(this._class.system);
+    const training = this.translateSkills(this._race.system)
+    this.system.attributes.class = this._class._id;
+    for (let ability of skills) {
+      this.system.abilities[ability].value = 5 + 2 * (Math.min(this.system.attributes.level.level, 4) - 1)
+    }
+    for (let ability of training) {
+      if (skills.includes(ability)) {
+        this.system.abilities[ability].value += +2
+      }
+      else {
+        this.system.abilities[ability].value = 5 + 2 * (Math.min(this.system.attributes.level.level, 4) - 1)
+      }
+
+    }
+
+  }
+
   translateSkills(system) {
     let skills = []
     for (let key in system) {
-      if (key.startsWith("skill")) {
-        if (system[key].length == 3) {
+      if (key.startsWith("skill") || key.startsWith("training")) {
+        if (system[key].length == 0) {
+          continue;
+        }
+        else if (system[key].length == 3) {
           skills.push(CONFIG.far.shortName[system[key]])
+        } else {
+          if (this._optionals === undefined) {
+            this._optionals = this.optionals()
+          }
+          if (this._optionals[key] === undefined) {
+            this._optionals[key] = { "choice": undefined, "options": this.parseChoice(system[key]), "locked": false }
+            // We don't save this value often, probably should have a better way to call and access it
+            this.system.attributes.optionals = this._optionals
+          }
+          else {
+            if (this._optionals[key].locked) {
+              console.log(this._optionals[key].choice)
+              skills.push(this._optionals[key].choice)
+            }
+          }
         }
       }
     }
@@ -51,11 +129,11 @@ export class farActor extends Actor {
     this.system.attributes.level.level += 1;
     const stats = this.translateSkills(this._class.system)
     const data = this.system;
-    for (let ability of Object.keys(stats)) {
-      if (Object.keys(stats[ability]).includes("per")) {
-        this.system.abilities[ability].value += stats[ability].per
-      }
-    }
+    // for (let ability of Object.keys(stats)) {
+    //   if (Object.keys(stats[ability]).includes("per")) {
+    //     this.system.abilities[ability].value += stats[ability].per
+    //   }
+    // }
     this.updateMaxHealth();
     return true;
 
@@ -63,7 +141,7 @@ export class farActor extends Actor {
 
 
   rollAbilityCheck(ability) {
-    var formula = "1d20+"+ this.system.abilities[ability].value 
+    var formula = "1d20+" + this.system.abilities[ability].value
     return this.rollCheck(formula, ability);
   }
 
@@ -87,36 +165,44 @@ export class farActor extends Actor {
     return;
 
   }
+  onraceChange(raceObj) {
+    if (raceObj.type !== "race") {
+      return;
+    }
+    if (this.raceObj !== null) { return; } // We need to implement this but for now we'll just return and not change anything 
+    this._race = raceObj;
+    this.classDataUpdate()
+    this.updateMaxHealth()
+    return;
+
+  }
 
   classDataUpdate() {
-    if (this._class === undefined) {
+    if (this._class === undefined || this._race === undefined) {
       if (this.system.attributes.class.class !== null) {
         this._class = game.items.find(this.system.attributes.class.class)
-        if (this._class !== undefined) {
-          return
-        }
       }
-      for (let item of this.items)
+      if (this.system.attributes.race !== null) {
+        this._class = game.items.find(this.system.attributes.race)
+      }
+      for (let item of this.items) {
         if (item.type == "class") {
           this._class = item;
         }
-
+        if (item.type == "race") { this._race = item }
+      }
       if (this._class !== undefined) {
         const data = this.system;
         for (let item of this.items) {
           if (item.type == "class" && item._id != this._class._id) {
             item.delete()
           }
+          if (item.type == "race" && item._id != this._race._id) {
+            item.delete()
+          }
         }
 
-        const skills = this.translateSkills(this._class.system);
-        this.system.attributes.class = this._class._id;
-        
-        for (let ability of skills) {
-          
-            this.system.abilities[ability].value = 5  + 2 * (Math.min(this.system.attributes.level.level, 4 ) - 1)
-          
-        }
+        this.updateSkills()
         // Handle Specialized Here
 
         this.doUpdates();
@@ -163,12 +249,28 @@ export class farActor extends Actor {
 
   updateMaxHealth() {
     const data = this.system;
-    data.health.max= this._class.system.health; // + Race Health
+
+    if (this._class !== undefined)
+      data.health.max = +this._class.system.base_hp;
+    else
+      data.health.max = 2; // We get here when a race is added but there is no class
     //if (goblin or vampire) data.health.max /=2
+    if (this._race !== undefined) {
+      if (this._race.system.hp_mod_is_multiplyer == 1) {
+        data.health.max *= +this._race.system.hp_mod
+      }
+      else {
+        data.health.max += +this._race.system.hp_mod
+      }
+    }
     // Levels 2, 3, and 4 give you 2 additional hit points. 
-    data.health.max+= 2 * (Math.min(data.attributes.level.level, 4 ) - 1)
-  
-    
+    data.health.max += 2 * (Math.min(data.attributes.level.level, 4) - 1)
+    data.health.max = Math.round(data.health.max)
+    if (data.health.value > data.health.max) {
+      data.health.value = data.health.max
+    }
+
+
     // if (HND) max+=2
 
 
@@ -214,7 +316,7 @@ export class farActor extends Actor {
     }
   }
 
-  async rollAttack() {}
+  async rollAttack() { }
   async rollCheck(formula, message) {
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });

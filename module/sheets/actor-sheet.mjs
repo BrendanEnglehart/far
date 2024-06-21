@@ -37,6 +37,8 @@ export class farActorSheet extends ActorSheet {
     console.log(actorData)
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = actorData.system;
+    context.data.optionals = actorData.optionals;
+
     context.flags = actorData.flags;
 
     // Prepare character data and items.
@@ -80,6 +82,7 @@ export class farActorSheet extends ActorSheet {
     const gear = [];
     const features = [];
     const classes = [];
+    const races = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
@@ -94,16 +97,24 @@ export class farActorSheet extends ActorSheet {
       }
 
       else if (i.type === 'class'){
-        classes.push(i);
+        classes[0] = i;
       }
+
+      else if (i.type === 'race'){
+        races[0] = i;
+      }
+
     }
 
     // Assign and return
     context.gear = gear;
     context.features = features;
     context.class = classes
+    context.race = races
    }
   /* -------------------------------------------- */
+
+
 
   /** @override */
   activateListeners(html) {
@@ -122,6 +133,17 @@ export class farActorSheet extends ActorSheet {
 
     // Add Inventory Item
     html.find('.item-create').click(this._onItemCreate.bind(this));
+
+    html.find('.submit-skill').click(ev => {
+       const option = $(ev.currentTarget).parents(".skill-option").data("skill");
+       const choice = $(ev.currentTarget).siblings()[0].value;
+       this.actor.optionals[option].locked = true
+       this.actor.optionals[option].choice = choice
+       this.actor.updateSkills()
+       this.actor.doUpdates()
+    }
+
+    )
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {

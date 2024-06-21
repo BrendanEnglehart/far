@@ -40,6 +40,11 @@ export class CharacterData extends foundry.abstract.DataModel {
                         nullable: true
                     })
                 }),
+                race: new fields.StringField({
+                    required: true,
+                    initial: null,
+                    nullable: true
+                }),
                 level: new fields.SchemaField({
                     level: new fields.NumberField({
                         required: true,
@@ -47,10 +52,7 @@ export class CharacterData extends foundry.abstract.DataModel {
                         integer: true
                     }),
                 }),
-                activeTier: new fields.NumberField({
-                    required: true,
-                    initial: 0,
-                    integer: true
+                optionals: new fields.SchemaField({
                 }),
             }),
             abilities: new fields.SchemaField({

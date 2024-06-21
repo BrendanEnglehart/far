@@ -27,6 +27,19 @@
               </div>
             </li>
             {{/each}}
+            <li class="item flexrow items-header">
+              <div class="item-name">Race</div>
+            </li>
+            {{#each race as |race id|}}
+            <li class="item flexrow" data-item-id="{{race._id}}">
+              <div class="item-name">
+                <div class="item-image">
+                  <a class="rollable" data-roll-type="item"><img src="{{race.img}}" title="{{race.name}}" width="24" height="24"/></a>
+                </div>
+                <h4>{{race.name}}</h4>
+              </div>
+            </li>
+            {{/each}}
           </ol>
           <div class="resource flex-group-center">
             <label for="data.attributes.level.level" class="resource-label">Level</label>
@@ -54,6 +67,21 @@
             <span class="ability-mod">{{numberFormat ability.value decimals=0}}</span>
           </div>
           {{/if}}
+        {{/each}}
+        {{#each data.optionals as |optional key|}}
+           {{#unless optional.locked}}       
+                <div data-skill="{{key}}" class="skill-option">
+                  <select name="{{key}}" value="{{optional.choice}}">
+                    {{#each optional.options as |option|}}
+                    <option data-skill-option="{{option}}" value="{{option}}">{{option}}</option>
+                    {{/each}}
+                  </select>
+                  <button class="submit-skill">Submit</button>
+                </div>
+        
+           {{/unless}}
+             
+        
         {{/each}}
         </div>
         
