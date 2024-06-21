@@ -1,1 +1,5 @@
+packs/class/CURRENT
+packs/class/LOG
+packs/*/CURRENT
+packs/*/LOG
 import/*
